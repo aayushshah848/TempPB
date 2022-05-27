@@ -6,7 +6,7 @@ const basePackService = require('../services/getBasePackage');
  * Controller for airlift's app
  * @return {Object}
  */
-const controller = (frontEnd, backEnd) => {
+ const controller = (project) => {
 
   /**
    * Node controller for copying and zipping folder
@@ -15,15 +15,15 @@ const controller = (frontEnd, backEnd) => {
   const nodeController = async () => {
     const uuid = uuidv4();
     console.log(uuid);
-    const originalPath = `${__dirname}/../basePackages/${frontEnd}${backEnd}`;
-    const destinationPath = `${__dirname}/../tmp/${uuid}`
+    const originalPath = `/home/ubuntu/airlift/basePackages/${project}`;
+    const destinationPath = `/home/ubuntu/airlift/tmp/${uuid}/`;
     basePackService().copyService(originalPath, destinationPath);
     await basePackService().zipService(destinationPath);
     return `${destinationPath}.zip`;
   }
 
   const jsonController = () => {
-    const path = `${__dirname}/../basePackages/${frontEnd}${backEnd}`;
+    const path = `/home/ubuntu/airlift/basePackages/${project}`;
     return buildTree(path);
   }
 
