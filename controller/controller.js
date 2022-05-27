@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const buildTree = require('../services/dirToJsonService');
 const basePackService = require('../services/getBasePackage');
-const uuid = uuidv4();
 
 /**
  * Controller for airlift's app
@@ -14,6 +13,8 @@ const controller = (frontEnd, backEnd) => {
    * @returns {String}
    */
   const nodeController = async () => {
+    const uuid = uuidv4();
+    console.log(uuid);
     const originalPath = `${__dirname}/../basePackages/${frontEnd}${backEnd}`;
     const destinationPath = `${__dirname}/../tmp/${uuid}`
     basePackService().copyService(originalPath, destinationPath);
