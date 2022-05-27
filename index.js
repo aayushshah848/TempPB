@@ -3,16 +3,27 @@ const express = require('express');
 // const { execFile } = require("child_process");
 const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
-const app = express();
+var cors = require('cors');
+var app = express();
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 app.get('/', async function (req, res) {
   const frontEnd = req.query.frontend;
   const backEnd = req.query.backend;
+const project = req.query.project;
   if (frontEnd === undefined || backEnd === undefined) res.status(400);
   else {
-    const file = await controller(frontEnd, backEnd).nodeController();
+if (project == undefined) project = 'sample';
+    const file = await controller(project).nodeController();
     res.download(file);
-    setTimeout(() => controller().cleanUp('C:\\Users\\Aayush-Yug\\Desktop\\Aerothon\\tmp\\b84d4bb0-efbb-476e-80b7-b37f19656792.zip'), 1000);
+    /*setTimeout(() => controller().cleanUp('/home/ubuntu/airlift/basePackages/'+project), 1000);*/
   }
 });
 

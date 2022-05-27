@@ -1,0 +1,48 @@
+{% load gro_static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color"
+          content="rgb(31 41 55)"
+          media="(prefers-color-scheme: light)">
+    <meta name="theme-color"
+          content="rgb(31 41 55)"
+          media="(prefers-color-scheme: dark)">
+    <meta name="author" content="Agence Gro">
+    <meta name="description" content="">
+
+    <!-- iOS/Apple -->
+    <!-- https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+    <link rel="apple-touch-icon" href="{% gro_static "icon192.png" %}">
+    <link rel="apple-touch-icon" sizes="192x192" href="{% gro_static "icon192.png" %}">
+    <link rel="apple-touch-icon" sizes="32x32" href="{% gro_static "icon32.png" %}">
+    <link rel="apple-touch-startup-image" href="{% gro_static "icon192.png" %}">
+    <meta name="apple-mobile-web-app-title" content="Gro API">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="{% gro_static "favicon.png" %}">
+    <link href="{% gro_static "css/project.css" %}" rel="stylesheet">
+    <link href="{% gro_static "css/fontawesome-all.min.css" %}" rel="stylesheet">
+    <title>Template Project</title>
+    <script type="text/javascript">
+        document.gro = {
+            url: "{{ GRO_URL }}",
+            ws_url: "{{ GRO_WS_URL }}",
+            static_url: "{{ STATIC_URL_PATH }}",
+            csrf_token: "{{ csrf_token }}"
+        };
+    </script>
+</head>
+<body>
+<div id="app">
+</div>
+</body>
+<script src="{% gro_static "main.js" %}"></script>
+</html>
