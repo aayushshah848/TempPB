@@ -1,6 +1,7 @@
 const controller = require('./controller/controller');
 const express = require('express');
-const { execFile } = require("child_process");
+// const { execFile } = require("child_process");
+const execFile = util.promisify(require('child_process').execFile);
 const app = express();
 
 app.get('/', async function (req, res) {
@@ -22,14 +23,23 @@ app.get('/json', async function (req, res) {
   if (frontEnd === undefined || backEnd === undefined) res.status(400);
   else {
       if (project == undefined) project = 'sample';
-      execFile('./trigger.sh', [frontEnd, backEnd, project],  function (error, stdout, stderr) {
-    if (error !== null) {
-      console.log(error);
-    } else {
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    }
-});
+
+      try {
+        const { stdout, stderr } = await execFile('./trigger.sh', [frontEnd, backEnd, project]);
+        console.log('stdout:', stdout);
+        console.log('stderr:', stderr);
+      } catch (e) {
+        console.error(e); // should contain code (exit code) and signal (that caused the termination).
+      }
+
+//       execFile('./trigger.sh', [frontEnd, backEnd, project],  function (error, stdout, stderr) {
+//     if (error !== null) {
+//       console.log(error);
+//     } else {
+//     console.log('stdout: ' + stdout);
+//     console.log('stderr: ' + stderr);
+//     }
+// });
     const output = controller(project).jsonController();
     res.setHeader('content-type', 'application/json');
     res.json(output);
