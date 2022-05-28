@@ -7,7 +7,7 @@ const basePackService = require('../services/getBasePackage');
  * Controller for airlift's app
  * @return {Object}
  */
- const controller = (project) => {
+const controller = (project) => {
 
   /**
    * Node controller for copying and zipping folder
@@ -24,6 +24,10 @@ const basePackService = require('../services/getBasePackage');
     return `${destinationPath}.zip`;
   }
 
+  /**
+   * This function converts files to json and sends it to index.js
+   * @returns Json
+   */
   const jsonController = () => {
     const path = `/home/ubuntu/airlift/basePackages/${project}`;
     return buildTree(path);

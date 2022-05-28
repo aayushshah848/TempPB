@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+/**
+ * Function treverse through files and create json iteratively.
+ * @param {String} rootPath 
+ * @returns JSON
+ */
 const buildTree = (rootPath) => {
   if (fs.statSync(rootPath).isDirectory()) {
     const st = {
